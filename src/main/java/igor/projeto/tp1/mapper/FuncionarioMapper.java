@@ -1,7 +1,7 @@
 package igor.projeto.tp1.mapper;
 
-import igor.projeto.tp1.dto.FuncionarioRequestDTO;
-import igor.projeto.tp1.dto.FuncionarioResponseDTO;
+import igor.projeto.tp1.dto.funcionario.FuncionarioRequestDTO;
+import igor.projeto.tp1.dto.funcionario.FuncionarioResponseDTO;
 import igor.projeto.tp1.model.Funcionario;
 
 public class FuncionarioMapper {

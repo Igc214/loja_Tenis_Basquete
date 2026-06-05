@@ -2,11 +2,12 @@ package igor.projeto.tp1.resource;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.FornecedorRequestDTO;
-import igor.projeto.tp1.dto.FornecedorResponseDTO;
+import igor.projeto.tp1.dto.fornecedor.FornecedorRequestDTO;
+import igor.projeto.tp1.dto.fornecedor.FornecedorResponseDTO;
 import igor.projeto.tp1.mapper.FornecedorMapper;
 import igor.projeto.tp1.model.Fornecedor;
 import igor.projeto.tp1.service.FornecedorService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -21,6 +22,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/fornecedor")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"ADMIN", "FUNCIONARIO"})
 public class FornecedorResource {
     
     @Inject

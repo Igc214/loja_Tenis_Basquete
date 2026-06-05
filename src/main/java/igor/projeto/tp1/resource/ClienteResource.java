@@ -2,11 +2,12 @@ package igor.projeto.tp1.resource;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.ClienteRequestDTO;
-import igor.projeto.tp1.dto.ClienteResponseDTO;
+import igor.projeto.tp1.dto.cliente.ClienteRequestDTO;
+import igor.projeto.tp1.dto.cliente.ClienteResponseDTO;
 import igor.projeto.tp1.mapper.ClienteMapper;
 import igor.projeto.tp1.model.Cliente;
 import igor.projeto.tp1.service.ClienteService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -21,6 +22,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/cliente")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"ADMIN", "FUNCIONARIO"})
 public class ClienteResource {
 
     @Inject

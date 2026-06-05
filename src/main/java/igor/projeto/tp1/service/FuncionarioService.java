@@ -2,7 +2,7 @@ package igor.projeto.tp1.service;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.FuncionarioRequestDTO;
+import igor.projeto.tp1.dto.funcionario.FuncionarioRequestDTO;
 import igor.projeto.tp1.model.Funcionario;
 
 public interface FuncionarioService {

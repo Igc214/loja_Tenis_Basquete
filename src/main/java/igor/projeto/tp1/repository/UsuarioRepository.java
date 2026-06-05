@@ -13,3 +13,4 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
         return find("login", login).firstResultOptional();
     }
 }
+

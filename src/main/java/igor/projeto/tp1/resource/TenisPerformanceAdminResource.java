@@ -2,13 +2,13 @@ package igor.projeto.tp1.resource;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.TenisPerformanceRequestAdminDTO;
-import igor.projeto.tp1.dto.TenisPerformanceResponseAdminDTO;
+import igor.projeto.tp1.dto.admin.TenisPerformanceRequestAdminDTO;
+import igor.projeto.tp1.dto.admin.TenisPerformanceResponseAdminDTO;
 import igor.projeto.tp1.mapper.TenisPerformanceMapper;
 import igor.projeto.tp1.model.TenisPerformance;
 import igor.projeto.tp1.service.TenisPerformanceAdminService;
 import jakarta.inject.Inject;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -29,7 +29,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 @Path("/tenis-performance")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@PermitAll // Permite acesso a todos os perfis (ajuste conforme necessário para segurança)
+@RolesAllowed({"ADMIN", "FUNCIONARIO"})
+
 @Tag(name = "Tenis Performance Admin", description = "Endpoints para administração de tênis de performance")
 public class TenisPerformanceAdminResource {
 

@@ -33,6 +33,8 @@ public class TenisPerformanceAdminServiceImpl implements TenisPerformanceAdminSe
             tenisPerformance.getNumeroDoPe() == 0 ||
             tenisPerformance.getCor() == null || tenisPerformance.getCor().isEmpty() ||
             tenisPerformance.getDescricao() == null || tenisPerformance.getDescricao().isEmpty() ||
+            tenisPerformance.getPreco() == null ||
+            tenisPerformance.getEstoque() == null ||
             tenisPerformance.getPosicao() == null ||
             tenisPerformance.getTipoSolado() == null ||
             tenisPerformance.getFabricante() == null) {
@@ -62,6 +64,8 @@ public class TenisPerformanceAdminServiceImpl implements TenisPerformanceAdminSe
         if (tenisPerformance.getNome() == null || tenisPerformance.getNome().isEmpty() ||
             tenisPerformance.getNumeroDoPe() == 0 ||
             tenisPerformance.getCor() == null || tenisPerformance.getCor().isEmpty() ||
+            tenisPerformance.getPreco() == null ||
+            tenisPerformance.getEstoque() == null ||
             tenisPerformance.getPosicao() == null ||
             tenisPerformance.getTipoSolado() == null ||
             tenisPerformance.getFabricante() == null ||
@@ -72,6 +76,10 @@ public class TenisPerformanceAdminServiceImpl implements TenisPerformanceAdminSe
         e.setNome(tenisPerformance.getNome());
         e.setNumeroDoPe(tenisPerformance.getNumeroDoPe());
         e.setCor(tenisPerformance.getCor());
+        e.setPreco(tenisPerformance.getPreco());
+        e.setEstoque(tenisPerformance.getEstoque());
+        e.setAtivo(tenisPerformance.isAtivo());
+        e.setEdicaoLimitada(tenisPerformance.getEdicaoLimitada());
         e.setPosicao(tenisPerformance.getPosicao());
         e.setTipoSolado(tenisPerformance.getTipoSolado());
         e.setFabricante(tenisPerformance.getFabricante());
@@ -83,9 +91,7 @@ public class TenisPerformanceAdminServiceImpl implements TenisPerformanceAdminSe
             review.setTenisPerformance(e);
             e.setReview(review);
         }
-        
-
-    }   
+    }
 
     @Override
     @Transactional

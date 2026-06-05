@@ -2,7 +2,7 @@ package igor.projeto.tp1.service;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.ClienteRequestDTO;
+import igor.projeto.tp1.dto.cliente.ClienteRequestDTO;
 import igor.projeto.tp1.exception.ValidationException;
 import igor.projeto.tp1.model.Cliente;
 import igor.projeto.tp1.repository.ClienteRepository;

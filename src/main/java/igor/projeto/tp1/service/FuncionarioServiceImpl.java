@@ -2,7 +2,7 @@ package igor.projeto.tp1.service;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.FuncionarioRequestDTO;
+import igor.projeto.tp1.dto.funcionario.FuncionarioRequestDTO;
 import igor.projeto.tp1.exception.ValidationException;
 import igor.projeto.tp1.model.Funcionario;
 import igor.projeto.tp1.repository.FuncionarioRepository;
@@ -19,7 +19,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     FuncionarioRepository repository;
 
     @GET
-    @RolesAllowed("ADMIN")// Apenas usuários com a role "ADMIN" podem acessar este endpoint
+
     @Override
     public List<Funcionario> findAll() {
         return repository.findAll().list();

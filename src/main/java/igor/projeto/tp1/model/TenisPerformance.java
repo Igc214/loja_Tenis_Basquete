@@ -1,12 +1,15 @@
 package igor.projeto.tp1.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
-;
+import jakarta.persistence.Version;
+
 @Entity
 @Table(name = "tenis_performance") // Especifica o nome da tabela no banco de dados
 public class TenisPerformance extends DefaultEntity {
@@ -15,8 +18,12 @@ public class TenisPerformance extends DefaultEntity {
     private int numeroDoPe;
     private String cor;
     private String descricao;
-    private Double preco;
+    @Column(name = "preco", precision = 10, scale = 2)
+    private BigDecimal preco;
     private Integer estoque;
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean ativo = true;
+    @Column(name = "edicao_limitada")
     private int edicaoLimitada;
     private boolean autografado;
 
@@ -33,6 +40,10 @@ public class TenisPerformance extends DefaultEntity {
 
     @OneToOne(mappedBy = "tenisPerformance", cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
+
+    @Version
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private Integer version = 0;
 
     public int getNumeroDoPe() {
         return numeroDoPe;
@@ -122,11 +133,11 @@ public class TenisPerformance extends DefaultEntity {
         this.review = review;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
@@ -136,6 +147,22 @@ public class TenisPerformance extends DefaultEntity {
 
     public void setEstoque(Integer estoque) {
         this.estoque = estoque;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
 }

@@ -1,9 +1,9 @@
 package igor.projeto.tp1.mapper;
 
-import igor.projeto.tp1.dto.ClienteRequestDTO;
-import igor.projeto.tp1.dto.ClienteResponseDTO;
+import igor.projeto.tp1.dto.cliente.ClienteRequestDTO;
+import igor.projeto.tp1.dto.cliente.ClienteResponseDTO;
 import igor.projeto.tp1.model.Cliente;
-import igor.projeto.tp1.model.Pessoa;
+
 
 public class ClienteMapper {
     

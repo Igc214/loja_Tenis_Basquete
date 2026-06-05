@@ -1,7 +1,7 @@
 package igor.projeto.tp1.mapper;
 
-import igor.projeto.tp1.dto.FornecedorRequestDTO;
-import igor.projeto.tp1.dto.FornecedorResponseDTO;
+import igor.projeto.tp1.dto.fornecedor.FornecedorRequestDTO;
+import igor.projeto.tp1.dto.fornecedor.FornecedorResponseDTO;
 import igor.projeto.tp1.model.Fornecedor;
 
 public class FornecedorMapper {

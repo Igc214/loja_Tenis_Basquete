@@ -2,7 +2,7 @@ package igor.projeto.tp1.service;
 
 import java.util.List;
 
-import igor.projeto.tp1.dto.FabricanteRequestDTO;
+import igor.projeto.tp1.dto.fabricante.FabricanteRequestDTO;
 import igor.projeto.tp1.model.Fabricante;
 
 public interface FabricanteService {

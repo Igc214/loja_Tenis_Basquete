@@ -1,7 +1,7 @@
 package igor.projeto.tp1.mapper;
 
-import igor.projeto.tp1.dto.FabricanteRequestDTO;
-import igor.projeto.tp1.dto.FabricanteResponseDTO;
+import igor.projeto.tp1.dto.fabricante.FabricanteRequestDTO;
+import igor.projeto.tp1.dto.fabricante.FabricanteResponseDTO;
 import igor.projeto.tp1.model.Fabricante;
 import igor.projeto.tp1.model.Fornecedor;
 
