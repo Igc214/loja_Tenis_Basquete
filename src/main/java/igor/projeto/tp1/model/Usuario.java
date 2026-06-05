@@ -21,6 +21,12 @@ public class Usuario extends DefaultEntity {
 
     private String sobrenome;
 
+    @Column(name = "jogador_favorito")
+    private String jogadorFavorito;
+
+    @Column(name = "time_nba")
+    private String timeNba;
+
     @Column(name = "senha_hash", nullable = false)
     private String senhaHash;
 
@@ -68,6 +74,22 @@ public class Usuario extends DefaultEntity {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
+    }
+
+    public String getJogadorFavorito() {
+        return jogadorFavorito;
+    }
+
+    public void setJogadorFavorito(String jogadorFavorito) {
+        this.jogadorFavorito = jogadorFavorito;
+    }
+
+    public String getTimeNba() {
+        return timeNba;
+    }
+
+    public void setTimeNba(String timeNba) {
+        this.timeNba = timeNba;
     }
 
     public String getEndereco() {

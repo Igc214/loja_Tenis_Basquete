@@ -6,6 +6,9 @@ public record UsuarioResponseDTO(
     Long id,
     String login,
     String nome,
+    String sobrenome,
+    String jogadorFavorito,
+    String timeNba,
     Perfil perfil,
     String endereco
 ) {}

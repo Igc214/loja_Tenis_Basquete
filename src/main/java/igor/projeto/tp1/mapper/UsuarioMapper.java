@@ -47,9 +47,9 @@ public class UsuarioMapper {
         Usuario usuario = new Usuario();
         usuario.setNome(dto.nome());
         usuario.setSobrenome(dto.sobrenome());
-        usuario.setLogin(dto.login());
-        usuario.setSenhaHash(dto.senha());
-        usuario.setEndereco(dto.endereco());
+        usuario.setJogadorFavorito(dto.jogadorFavorito());
+        usuario.setTimeNba(dto.timeNba());
+        usuario.setEndereco(formatarEndereco(dto));
         usuario.setPerfil(Perfil.CLIENTE);
 
         return usuario;
@@ -64,8 +64,17 @@ public class UsuarioMapper {
                 usuario.getId(),
                 usuario.getLogin(),
                 usuario.getNome(),
+                usuario.getSobrenome(),
+                usuario.getJogadorFavorito(),
+                usuario.getTimeNba(),
                 usuario.getPerfil(),
                 usuario.getEndereco()
         );
+    }
+
+    private String formatarEndereco(CadastroCompletoDTO dto) {
+        return dto.rua() + ", " + dto.numero()
+                + " - " + dto.cidade() + "/" + dto.estado()
+                + " - CEP " + dto.cep();
     }
 }

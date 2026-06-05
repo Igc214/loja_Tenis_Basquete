@@ -7,6 +7,9 @@ public record ForgotPasswordDTO(
         String login,
 
         @NotBlank(message = "A senha atual e obrigatoria")
-        String senhaAtual
+        String senhaAtual,
+
+        @NotBlank(message = "A nova senha e obrigatoria")
+        String novaSenha
 ) {
 }

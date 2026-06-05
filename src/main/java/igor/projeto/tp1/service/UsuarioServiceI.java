@@ -13,9 +13,12 @@ public interface UsuarioServiceI {
     Usuario findByLogin(String login);
     Usuario create(Usuario usuario);
     Usuario create(CadastroSimplesDTO dto);
-    Usuario create(CadastroCompletoDTO dto);
+    Usuario completarCadastro(String login, CadastroCompletoDTO dto);
+    void validarCadastroCompleto(Usuario usuario);
+    void validarEnderecoEntrega(Usuario usuario);
     void update(String login, EditarDadosDTO dto);
     void setEndereco(String login, String endereco);
+    void alterarSenha(String login, String senhaAtual, String novaSenha);
     void setPassword(String login, String token, String novaSenha);
     void update(Long id, UsuarioRequestDTO dto);
     void delete(Long id);

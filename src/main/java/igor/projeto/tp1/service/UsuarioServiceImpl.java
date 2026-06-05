@@ -73,19 +73,44 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
 
     @Override
     @Transactional
-    public Usuario create(CadastroCompletoDTO dto) {
-        validarLoginDisponivel(dto.login());
-
-        Usuario usuario = new Usuario();
-        usuario.setNome(dto.nome());
-        usuario.setSobrenome(dto.sobrenome());
-        usuario.setLogin(dto.login());
-        usuario.setSenhaHash(hashService.bcrypt(dto.senha()));
-        usuario.setEndereco(dto.endereco());
-        usuario.setPerfil(Perfil.CLIENTE);
-
+    public Usuario completarCadastro(String login, CadastroCompletoDTO dto) {
+        Usuario usuario = findByLogin(login);
+        aplicarCadastroCompleto(usuario, dto);
+        validarCadastroCompleto(usuario);
         repository.persist(usuario);
         return usuario;
+    }
+
+    @Override
+    public void validarCadastroCompleto(Usuario usuario) {
+        if (usuario == null) {
+            throw new ValidationException("Usuario nao encontrado", "usuario");
+        }
+        if (isBlank(usuario.getNome())) {
+            throw new ValidationException("Complete o cadastro antes de finalizar a compra: informe o nome", "nome");
+        }
+        if (isBlank(usuario.getSobrenome())) {
+            throw new ValidationException("Complete o cadastro antes de finalizar a compra: informe o sobrenome", "sobrenome");
+        }
+        if (isBlank(usuario.getJogadorFavorito())) {
+            throw new ValidationException("Complete o cadastro antes de finalizar a compra: informe o jogador favorito", "jogadorFavorito");
+        }
+        if (isBlank(usuario.getTimeNba())) {
+            throw new ValidationException("Complete o cadastro antes de finalizar a compra: informe o time da NBA", "timeNba");
+        }
+        if (isBlank(usuario.getEndereco())) {
+            throw new ValidationException("Complete o cadastro antes de finalizar a compra: informe o endereco", "endereco");
+        }
+    }
+
+    @Override
+    public void validarEnderecoEntrega(Usuario usuario) {
+        if (usuario == null) {
+            throw new ValidationException("Usuario nao encontrado", "usuario");
+        }
+        if (isBlank(usuario.getEndereco())) {
+            throw new ValidationException("Informe o endereco de entrega antes de finalizar a compra", "enderecoEntrega");
+        }
     }
 
     @Override
@@ -113,6 +138,22 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
         }
 
         usuario.setEndereco(endereco);
+        repository.persist(usuario);
+    }
+
+    @Override
+    @Transactional
+    public void alterarSenha(String login, String senhaAtual, String novaSenha) {
+        if (novaSenha == null || novaSenha.isBlank()) {
+            throw new ValidationException("Nova senha nao pode ser vazia", "novaSenha");
+        }
+
+        Usuario usuario = findByLogin(login);
+        if (!hashService.verificarSenha(senhaAtual, usuario.getSenhaHash())) {
+            throw new ValidationException("Senha atual incorreta", "senhaAtual");
+        }
+
+        usuario.setSenhaHash(hashService.bcrypt(novaSenha));
         repository.persist(usuario);
     }
 
@@ -179,5 +220,24 @@ public class UsuarioServiceImpl implements UsuarioServiceI {
         if (repository.findByLogin(login).isPresent()) {
             throw new ValidationException("Login ja existe", "login");
         }
+    }
+
+    private void aplicarCadastroCompleto(Usuario usuario, CadastroCompletoDTO dto) {
+        usuario.setNome(dto.nome());
+        usuario.setSobrenome(dto.sobrenome());
+        usuario.setJogadorFavorito(dto.jogadorFavorito());
+        usuario.setTimeNba(dto.timeNba());
+        usuario.setEndereco(formatarEndereco(dto));
+        usuario.setPerfil(Perfil.CLIENTE);
+    }
+
+    private boolean isBlank(String valor) {
+        return valor == null || valor.isBlank();
+    }
+
+    private String formatarEndereco(CadastroCompletoDTO dto) {
+        return dto.rua() + ", " + dto.numero()
+                + " - " + dto.cidade() + "/" + dto.estado()
+                + " - CEP " + dto.cep();
     }
 }

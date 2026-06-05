@@ -19,6 +19,9 @@ public class ListaDesejoMapper {
         return new ListaDesejoResponseDTO(
                 listaDesejo.getId(),
                 usuarioMapper.toResponseDTO(listaDesejo.getUsuario()),
+                listaDesejo.getUsuario() != null ? listaDesejo.getUsuario().getEndereco() : null,
+                listaDesejo.getUsuario() != null ? listaDesejo.getUsuario().getJogadorFavorito() : null,
+                listaDesejo.getUsuario() != null ? listaDesejo.getUsuario().getTimeNba() : null,
                 TenisEcommerceMapper.toBuscaDTO(listaDesejo.getTenisPerformance()),
                 listaDesejo.getAdicionadoEm()
         );

@@ -31,9 +31,6 @@ public class AuthService implements AuthServiceInter {
     @Inject
     JwtService jwtService;
 
-    @Inject
-    CacheService cacheService;
-
     @Override
     public AuthResponseDTO login(AuthRequestDTO dto) {
         Usuario usuario = usuarioRepository.findByLogin(dto.login())
@@ -65,7 +62,9 @@ public class AuthService implements AuthServiceInter {
             throw new ValidationException("Login ou senha atual incorreto(s)", "senhaAtual");
         }
 
-        return cacheService.getTokenSenha(usuario.getLogin());
+        usuario.setSenhaHash(hashService.bcrypt(dto.novaSenha()));
+        usuarioRepository.persist(usuario);
+        return "Senha alterada com sucesso";
     }
 
     private AuthorizationException credenciaisInvalidas() {

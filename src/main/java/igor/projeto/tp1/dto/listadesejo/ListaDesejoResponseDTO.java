@@ -8,6 +8,9 @@ import igor.projeto.tp1.dto.usuario.UsuarioResponseDTO;
 public record ListaDesejoResponseDTO(
         Long id,
         UsuarioResponseDTO usuario,
+        String endereco,
+        String jogadorFavorito,
+        String timeNba,
         TenisBuscaLojaDTO produto,
         LocalDateTime adicionadoEm
 ) {

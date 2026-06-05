@@ -3,8 +3,8 @@ package igor.projeto.tp1.resource;
 import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.eclipse.microprofile.jwt.Claims;
 
+import igor.projeto.tp1.dto.usuario.AtualizarSenhaDTO;
 import igor.projeto.tp1.dto.usuario.CadastroCompletoDTO;
 import igor.projeto.tp1.dto.usuario.CadastroSimplesDTO;
 import igor.projeto.tp1.dto.usuario.EditarDadosDTO;
@@ -53,22 +53,22 @@ public class UsuarioResource {
                 .build();
     }
 
-    @POST
+    /* @POST
     @Path("/cadastro/simples")
-    @RolesAllowed({"ADMIN", "FUNCIONARIO"})
+    @PermitAll
     public Response cadastroSimples(@Valid CadastroSimplesDTO dto) {
         Usuario usuario = service.create(dto);
         return Response.status(Status.CREATED)
                 .entity(mapper.toResponseDTO(usuario))
                 .build();
-    }
+    } */
 
     @POST
     @Path("/cadastro/completo")
-    @RolesAllowed({"ADMIN", "FUNCIONARIO"})
+    @RolesAllowed({"ADMIN", "FUNCIONARIO", "CLIENTE"})
     public Response cadastroCompleto(@Valid CadastroCompletoDTO dto) {
-        Usuario usuario = service.create(dto);
-        return Response.status(Status.CREATED)
+        Usuario usuario = service.completarCadastro(loginAutenticado(), dto);
+        return Response.ok()
                 .entity(mapper.toResponseDTO(usuario))
                 .build();
     }
@@ -95,11 +95,10 @@ public class UsuarioResource {
     }
 
     @PATCH
-    @Path("/editar/senha/{token}")
+    @Path("/editar/senha")
     @RolesAllowed({"ADMIN", "FUNCIONARIO", "CLIENTE"})
-    public Response atualizarSenha(@PathParam("token") String token, String novaSenha) {
-        String login = jwt.getClaim("upn").toString();
-        service.setPassword(login, token, novaSenha);
+    public Response atualizarSenha(@Valid AtualizarSenhaDTO dto) {
+        service.alterarSenha(loginAutenticado(), dto.senhaAtual(), dto.novaSenha());
         return Response.noContent().build();
     }
 
@@ -107,7 +106,7 @@ public class UsuarioResource {
     @Path("/editar/dados")
     @RolesAllowed({"ADMIN", "FUNCIONARIO", "CLIENTE"})
     public Response editarDados(@Valid EditarDadosDTO dto) {
-        String login = jwt.getClaim("upn").toString();
+        String login = loginAutenticado();
         service.update(login, dto);
         Usuario usuario = service.findByLogin(login);
         return Response.ok(mapper.toResponseDTO(usuario)).build();
@@ -128,5 +127,9 @@ public class UsuarioResource {
         service.update(id, dto);
         Usuario usuario = service.findById(id);
         return Response.ok(mapper.toResponseDTO(usuario)).build();
+    }
+
+    private String loginAutenticado() {
+        return jwt.getClaim("upn");
     }
 }

@@ -1,4 +1,4 @@
-package igor.projeto.tp1.resource;
+/* package igor.projeto.tp1.resource;
 
 import java.net.URI;
 
@@ -16,3 +16,4 @@ public class RootResource {
         return Response.seeOther(URI.create("/q/swagger-ui/")).build();
     }
 }
+ */

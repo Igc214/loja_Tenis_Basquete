@@ -35,6 +35,9 @@ public class PedidoMapper {
         return new PedidoResponseDTO(
                 pedido.getId(),
                 usuarioMapper.toResponseDTO(pedido.getUsuario()),
+                pedido.getUsuario() != null ? pedido.getUsuario().getEndereco() : null,
+                pedido.getUsuario() != null ? pedido.getUsuario().getJogadorFavorito() : null,
+                pedido.getUsuario() != null ? pedido.getUsuario().getTimeNba() : null,
                 pedido.getStatus(),
                 pedido.getValorTotal(),
                 pedido.getPagamento() != null ? pedido.getPagamento().getStatusPagamento() : null,

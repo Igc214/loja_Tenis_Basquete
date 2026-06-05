@@ -11,6 +11,9 @@ import igor.projeto.tp1.model.StatusPedido;
 public record PedidoResponseDTO(
         Long id,
         UsuarioResponseDTO usuario,
+        String enderecoEntrega,
+        String jogadorFavorito,
+        String timeNba,
         StatusPedido status,
         BigDecimal valorTotal,
         StatusPagamento statusPagamento,

@@ -26,12 +26,16 @@ public class PagamentoService implements PagamentoServiceInter {
     @Inject
     PedidoRepository pedidoRepository;
 
+    @Inject
+    UsuarioServiceI usuarioService;
+
     @Override
     @Transactional
     public Pagamento criar(String login, PagamentoRequestDTO dto) {
         Pedido pedido = pedidoRepository.findByIdAndUsuarioLogin(dto.pedidoId(), login)
                 .orElseThrow(() -> new NotFoundException("Pedido nao encontrado"));
 
+        validarCadastroCompleto(pedido);
         validarPedidoPodeSerPago(pedido);
 
         if (pagamentoRepository.findByPedidoId(pedido.getId()).isPresent()) {
@@ -175,5 +179,10 @@ public class PagamentoService implements PagamentoServiceInter {
         }
 
         pagamento.getPedido().setStatus(StatusPedido.PENDENTE);
+    }
+
+    private void validarCadastroCompleto(Pedido pedido) {
+        usuarioService.validarCadastroCompleto(pedido.getUsuario());
+        usuarioService.validarEnderecoEntrega(pedido.getUsuario());
     }
 }
